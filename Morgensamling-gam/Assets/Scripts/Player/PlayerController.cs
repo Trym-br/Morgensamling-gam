@@ -21,7 +21,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        playerIsGrounded = Physics2D.OverlapBox(groundCheck.position, groundBoxSize, 0f, whatIsGround);
+        // playerIsGrounded = Physics2D.OverlapBox(groundCheck.position, groundBoxSize, 0f, whatIsGround);
+        playerIsGrounded = Physics2D.OverlapBox(transform.position - new Vector3(0,1f,0), groundBoxSize, 0f, whatIsGround);
         
         if (_input.Jump && playerIsGrounded)
         {
@@ -32,7 +33,7 @@ public class PlayerController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(groundCheck.position, groundBoxSize);
+        Gizmos.DrawWireCube(transform.position - new Vector3(0,1f,0), groundBoxSize);
     }
 
     private void FixedUpdate()
