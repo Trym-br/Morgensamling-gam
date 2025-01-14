@@ -2,16 +2,17 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private InputActions _input;
+    private Rigidbody2D _rigidbody2D;
+    
     public float moveSpeed = 5f;
     public float jumpSpeed = 7f;
- 
     public bool playerIsGrounded;
     public Transform groundCheck;
     public LayerMask whatIsGround;
     public Vector2 groundBoxSize = new Vector2(0.8f,0.2f);
-    
-    private InputActions _input;
-    private Rigidbody2D _rigidbody2D;
+
+    public GameObject HookShotPrefab;
 
     private void Start()
     {
@@ -28,6 +29,13 @@ public class PlayerController : MonoBehaviour
         {
             _rigidbody2D.linearVelocityY = jumpSpeed;
         }
+
+        if (_input.Shoot)
+        {
+            // var Angle = _input.MoveDir.x * transform.right;
+            float angle = Mathf.Atan2(_input.MoveDir.y, _input.MoveDir.x) * Mathf.Rad2Deg;
+            Instantiate(HookShotPrefab, transform.position,  Quaternion.Euler(0, 0, angle));
+        }
     }
 
     private void OnDrawGizmos()
@@ -38,6 +46,6 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rigidbody2D.linearVelocityX = _input.Horizontal * moveSpeed;
+        _rigidbody2D.linearVelocityX = _input.MoveDir.x * moveSpeed;
     }
 }

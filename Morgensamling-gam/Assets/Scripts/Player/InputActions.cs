@@ -4,15 +4,16 @@ public class InputActions : MonoBehaviour
 {
     private InputSystem_Actions _inputSystem;
 
-    public float Horizontal;
+    public Vector2 MoveDir;
     public bool Jump;
+    public bool Shoot;
 
 
     private void Update()
     {
-        Horizontal = _inputSystem.Player.Move.ReadValue<Vector2>().x;
+        MoveDir = _inputSystem.Player.Move.ReadValue<Vector2>();
         Jump = _inputSystem.Player.Jump.WasPressedThisFrame();
-
+        Shoot = _inputSystem.Player.Attack.WasPressedThisFrame();
     }
 
     private void Awake() { _inputSystem = new InputSystem_Actions(); }
