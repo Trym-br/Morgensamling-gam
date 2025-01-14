@@ -48,4 +48,12 @@ public class PlayerController : MonoBehaviour
     {
         _rigidbody2D.linearVelocityX = _input.MoveDir.x * moveSpeed;
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Coin"))
+        {
+            Destroy(other.gameObject);
+        }
+    }
 }
